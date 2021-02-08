@@ -1,4 +1,4 @@
-# "INVASE+: INSTANCE-WISE VARIABLE SELECTION USING PATH-BASED DERIVATIVES"
+# INVASE+: INSTANCE-WISE VARIABLE SELECTION USING PATH-BASED DERIVATIVES
 
 Extension to INVASE model proposed by the authors below:
 
@@ -6,6 +6,7 @@ Paper: Jinsung Yoon, James Jordon, Mihaela van der Schaar,
        "INVASE: Instance-wise Variable Selection using Neural Networks," 
        International Conference on Learning Representations (ICLR), 2019.
        (https://openreview.net/forum?id=BJg_roAcK7)
+
 Github: https://github.com/jsyoon0823/INVASE
 
 INVASE+ extends INVASE by using path-based derivatives to allow backpropagation through subset sampling. Additionally, the selector and predictor networks are trained in an embedded fashion. Please see `invase_plus.pdf` for more information.
@@ -34,4 +35,12 @@ Training and evaluation of the model are actioned through `main.py`. At run-time
 - save_model: whether to save model after training
 
 ## Referencing:
-Please cite authors and work of original INVASE paper. 
+If you found this useful, please cite authors and work of original INVASE paper. 
+```
+@inproceedings{yoon2018invase,
+  title={INVASE: Instance-wise variable selection using neural networks},
+  author={Yoon, Jinsung and Jordon, James and van der Schaar, Mihaela},
+  booktitle={International Conference on Learning Representations},
+  year={2018}
+}
+```
