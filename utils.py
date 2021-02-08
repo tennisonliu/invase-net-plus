@@ -1,7 +1,17 @@
+'''
+Helper Functions - Largely based on code provided by authors.
+Reference: Jinsung Yoon, James Jordon, Mihaela van der Schaar, 
+           "IINVASE: Instance-wise Variable Selection using Neural Networks," 
+           International Conference on Learning Representations (ICLR), 2019.
+Paper Link: https://openreview.net/forum?id=BJg_roAcK7
+Contact: jsyoon0823@gmail.com
+---------------------------------------------------
+'''
+
 # Necessary packages
+import torch
 import numpy as np
 from sklearn.metrics import roc_auc_score, average_precision_score, accuracy_score
-import torch
 
 def feature_performance_metric(ground_truth, importance_score):
   """Performance metrics for feature importance (TPR and FDR).
@@ -35,13 +45,32 @@ def feature_performance_metric(ground_truth, importance_score):
     fdr_nom = np.sum(importance_score[i, :] * (1-ground_truth[i, :]))
     fdr_den = np.sum(importance_score[i,:])
     fdr[i] = 100 * float(fdr_nom)/float(fdr_den+1e-8)
-    
+
   mean_tpr = np.mean(tpr)
   std_tpr = np.std(tpr)
   mean_fdr = np.mean(fdr)
   std_fdr = np.std(fdr)  
   
   return mean_tpr, std_tpr, mean_fdr, std_fdr
+
+def feature_fdr(ground_truth, importance_score):
+  if torch.is_tensor(importance_score):
+    importance_score = importance_score.cpu().detach().numpy()
+
+  n, n_features = importance_score.shape
+
+  tp = np.zeros(n_features)
+  fp = np.zeros(n_features)
+  tn = np.zeros(n_features)
+  fn = np.zeros(n_features)
+
+  for i in range(n):
+    tp += importance_score[i, :]*ground_truth[i, :]
+    fp += importance_score[i, :]*(1-ground_truth[i, :])
+    tn += (1-importance_score[i, :]) * (1-ground_truth[i, :])
+    fn += (1-importance_score[i, :])*ground_truth[i, :]
+
+  return (tp)/(tp+fn), (fp)/(tp+fp)
 
 
 def prediction_performance_metric (y_test, y_hat):

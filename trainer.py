@@ -1,7 +1,24 @@
-import numpy as np
+'''
+Functions for training model.
+'''
+
 import torch
+import numpy as np
 
 def train_one_iter(model, train_dataloader, loss_func, optimiser, device, iteration, log_interval=10):
+    '''
+    Train network for one iteration
+    Args:
+        - model: instantiated model
+        - train_dataloader: pytorch dataloader object
+        - loss_func
+        - optimiser
+        - device: 'cpu'|'cuda'
+        - iteration: number of iteration during training
+    Returns:
+        - Mean loss over iteration
+        - Mean accuracy over iteration
+    '''
     losses = []
     running_correct, running_total = 0, 0
     model.train()
@@ -24,9 +41,5 @@ def train_one_iter(model, train_dataloader, loss_func, optimiser, device, iterat
 
     if iteration % log_interval == 0:
         print(f"[Iteration {iteration}] Loss: {np.mean(losses):.4f} Accuracy: {(100.*running_correct/running_total):.2f}")
-        print(f"Temperature: {model.tau:.4f}")
-        print(f"Input: {inputs[0, :].cpu().detach().numpy()}")
-        print(f"Feature importance: {probs[0, :].cpu().detach().numpy()}")
-        print(f"Feature selection: {mask[0, :].cpu().detach().numpy()}")
 
     return np.mean(losses), 100.*running_correct/running_total
