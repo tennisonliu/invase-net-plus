@@ -9,7 +9,7 @@ Paper: Jinsung Yoon, James Jordon, Mihaela van der Schaar,
 
 Github: https://github.com/jsyoon0823/INVASE
 
-INVASE+ extends INVASE by using path-based derivatives to allow backpropagation through subset sampling. Additionally, the selector and predictor networks are trained in an embedded fashion. Please see `invase_plus.pdf` for more information.
+INVASE+ extends INVASE by using path-based derivatives to allow backpropagation through subset sampling. Additionally, the selector and predictor networks are trained in an embedded fashion. Please see `invase-net-plus.pdf` for more information.
 
 ## Stages of the INVASE+ framework:
 -   Generate synthetic dataset (6 synthetic datasets)
