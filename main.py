@@ -16,7 +16,7 @@ def main():
     '''
     Main logic for program. Trains the model and evaluates discovery and prediction performance.
     '''
-    device='cpu'
+    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     print(f"Training model on: {device}")
     writer = SummaryWriter(comment=f"_{Config.data_type}_selector_training")
 
